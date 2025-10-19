@@ -63,6 +63,7 @@ export function IdCard3D() {
         
         // Profile picture
         const img = new Image();
+        img.crossOrigin = 'anonymous';
         img.src = 'https://picsum.photos/seed/mark/400/400';
         img.onload = () => {
             context.drawImage(img, 0, 120, 400, 400);
