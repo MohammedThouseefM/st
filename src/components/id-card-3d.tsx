@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef } from 'react';
@@ -10,8 +11,13 @@ export function IdCard3D() {
     if (!mountRef.current) return;
 
     const currentMount = mountRef.current;
-    let scene: THREE.Scene, camera: THREE.PerspectiveCamera, renderer: THREE.WebGLRenderer, card: THREE.Mesh;
-    const targetRotation = { x: 0, y: 0 };
+    let scene: THREE.Scene, camera: THREE.PerspectiveCamera, renderer: THREE.WebGLRenderer, card: THREE.Group, pivot: THREE.Object3D;
+    
+    // Physics variables
+    const velocity = new THREE.Vector2();
+    const targetPosition = new THREE.Vector2();
+    const stiffness = 0.05;
+    const damping = 0.85;
 
     const init = () => {
       // Scene
@@ -81,15 +87,36 @@ export function IdCard3D() {
         return new THREE.CanvasTexture(canvas);
       };
 
-      // Card Geometry
-      const geometry = new THREE.BoxGeometry(4, 2.37, 0.05);
+      // Card Group setup for hanging effect
+      const cardWidth = 4;
+      const cardHeight = 2.37;
+      const cardDepth = 0.05;
+
+      pivot = new THREE.Object3D();
+      pivot.position.set(0, 1.5, 0); // Pivot point from which the card hangs
+      scene.add(pivot);
+
+      const geometry = new THREE.BoxGeometry(cardWidth, cardHeight, cardDepth);
       const material = new THREE.MeshStandardMaterial({
         map: createCardTexture(),
         roughness: 0.4,
         metalness: 0.2,
       });
-      card = new THREE.Mesh(geometry, material);
-      scene.add(card);
+      const cardMesh = new THREE.Mesh(geometry, material);
+      cardMesh.position.set(0, -cardHeight / 2 - 0.2, 0); // Position card below the pivot
+
+      // Add a string
+      const stringMaterial = new THREE.LineBasicMaterial({ color: 0x98FF98, linewidth: 2 });
+      const stringGeometry = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(0, cardHeight/2 + 0.2, 0)
+      ]);
+      const cardString = new THREE.Line(stringGeometry, stringMaterial);
+      cardMesh.add(cardString);
+      
+      card = new THREE.Group();
+      card.add(cardMesh);
+      pivot.add(card);
 
       // Event Listeners
       currentMount.addEventListener('mousemove', handleMouseMove);
@@ -101,13 +128,13 @@ export function IdCard3D() {
       const rect = currentMount.getBoundingClientRect();
       const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
       const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-      targetRotation.x = y * 0.3;
-      targetRotation.y = x * 0.3;
+      targetPosition.x = x * 0.5; // Scale down the mouse effect
+      targetPosition.y = y * 0.5;
     };
 
     const handleMouseLeave = () => {
-      targetRotation.x = 0;
-      targetRotation.y = 0;
+      targetPosition.x = 0;
+      targetPosition.y = 0;
     };
 
     const handleResize = () => {
@@ -120,10 +147,25 @@ export function IdCard3D() {
     const animate = () => {
       if (!renderer) return;
       requestAnimationFrame(animate);
-      if (card) {
-        card.rotation.x += (targetRotation.x - card.rotation.x) * 0.05;
-        card.rotation.y += (targetRotation.y - card.rotation.y) * 0.05;
+      
+      if (pivot) {
+        // Calculate the force to apply
+        const forceX = (targetPosition.x - pivot.rotation.y) * stiffness;
+        const forceY = (targetPosition.y - pivot.rotation.x) * stiffness;
+
+        // Update velocity
+        velocity.x += forceX;
+        velocity.y += forceY;
+
+        // Apply damping to slow it down
+        velocity.x *= damping;
+        velocity.y *= damping;
+        
+        // Update pivot rotation
+        pivot.rotation.y += velocity.x;
+        pivot.rotation.x += velocity.y;
       }
+      
       renderer.render(scene, camera);
     };
 
@@ -143,7 +185,7 @@ export function IdCard3D() {
             object.geometry.dispose();
             if (Array.isArray(object.material)) {
               object.material.forEach(material => material.dispose());
-            } else {
+            } else if (object.material) {
               object.material.dispose();
             }
           }
