@@ -19,7 +19,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-code antialiased bg-background text-primary">
+      <body className="font-code antialiased bg-background text-foreground">
         {children}
         <Toaster />
       </body>

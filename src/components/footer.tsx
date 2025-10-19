@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 
 const Prompt = () => (
-  <span className="text-primary">gatere@portfolio:~$ </span>
+  <span className="text-secondary">gatere@portfolio:~$ </span>
 );
 
 export function Footer() {
@@ -28,7 +28,7 @@ export function Footer() {
   return (
     <footer className="w-full p-4 border-t-2 border-primary flex justify-between items-center">
       <Prompt />
-      <span className="text-primary">{currentTime}</span>
+      <span className="text-accent">{currentTime}</span>
     </footer>
   );
 }
