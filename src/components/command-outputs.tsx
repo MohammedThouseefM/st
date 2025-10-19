@@ -34,8 +34,8 @@ export const About = () => (
 );
 
 const projectList = [
-    { name: 'thouseef Maps', desc: 'A Google Maps clone built with modern web technologies, showcasing real-time geolocation and interactive map features.' },
-    { name: 'thouseefbot', desc: 'A ChatGPT-inspired NLP project that demonstrates advanced language understanding and generation capabilities.' },
+    { name: 'Thouseef Maps', desc: 'A Google Maps clone built with modern web technologies, showcasing real-time geolocation and interactive map features.' },
+    { name: 'Thouseefbot', desc: 'A ChatGPT-inspired NLP project that demonstrates advanced language understanding and generation capabilities.' },
 ];
 
 export const Projects = () => (

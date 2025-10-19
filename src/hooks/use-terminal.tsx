@@ -11,7 +11,7 @@ export type HistoryItem = {
 
 const welcomeMessage = (
   <div>
-    <p>Welcome to Thouseef&apos;s interactive portfolio.</p>
+    <p>Welcome to Thouseef's interactive portfolio.</p>
     <p>Type 'help' for a list of commands.</p>
   </div>
 );
