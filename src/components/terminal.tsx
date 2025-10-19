@@ -48,7 +48,7 @@ export function Terminal() {
                 <span className="text-primary">clear</span>
             </p>
         </div>
-      <div ref={scrollRef} className="flex-grow overflow-y-auto pr-2 mt-4">
+      <div ref={scrollRef} className="flex-grow overflow-y-auto pr-2 mt-4 no-scrollbar">
         {history.map((item: HistoryItem) => (
           <div key={item.id} className="mb-2">
             <Prompt command={item.command} />
