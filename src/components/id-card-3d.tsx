@@ -68,9 +68,22 @@ export function IdCard3D() {
         context.lineTo(482, 130);
         context.stroke();
         
-        context.fillStyle = '#98FF98';
+        // "DIGITAL ID" Label
+        const idLabelText = 'DIGITAL ID';
         context.font = 'bold 20px "Source Code Pro"';
-        context.fillText('DIGITAL ID', 380, 50);
+        const textMetrics = context.measureText(idLabelText);
+        const textWidth = textMetrics.width;
+        const labelPadding = 10;
+        const labelX = 380 - (textWidth / 2) - labelPadding + 60;
+        const labelY = 30;
+        const labelWidth = textWidth + (labelPadding * 2);
+        const labelHeight = 30;
+
+        context.fillStyle = '#98FF98';
+        context.fillRect(labelX, labelY, labelWidth, labelHeight);
+        
+        context.fillStyle = '#1a1a1a';
+        context.fillText(idLabelText, labelX + labelPadding, labelY + 22);
 
         context.fillStyle = '#BBBBBB';
         const qrSize = 8;
