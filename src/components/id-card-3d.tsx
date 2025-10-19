@@ -47,14 +47,24 @@ export function IdCard3D() {
         const context = canvas.getContext('2d');
         if (!context) return new THREE.CanvasTexture(canvas);
 
-        // Card background
-        context.fillStyle = '#1a1a1a'; // Darker grey
-        context.fillRect(0, 0, canvas.width, canvas.height);
+        // Clear background for transparency
+        context.clearRect(0, 0, canvas.width, canvas.height);
         
-        // Logo
+        // Logo (Stylized 'M')
         context.fillStyle = '#bbbbbb';
         context.font = 'bold 40px "Source Code Pro"';
-        context.fillText('G', 30, 70);
+        context.beginPath();
+        context.moveTo(30, 70);
+        context.lineTo(50, 30);
+        context.lineTo(70, 70);
+        context.lineTo(90, 30);
+        context.lineTo(110, 70);
+        context.lineTo(95, 70);
+        context.lineTo(80, 45);
+        context.lineTo(65, 70);
+        context.closePath();
+        context.fill();
+
 
         // gateremark text
         context.fillStyle = '#bbbbbb';
@@ -72,8 +82,26 @@ export function IdCard3D() {
         }
 
         const texture = new THREE.CanvasTexture(canvas);
+        texture.needsUpdate = true;
         return texture;
       };
+      
+      const createStripeTexture = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 64;
+        canvas.height = 64;
+        const context = canvas.getContext('2d');
+        if (!context) return null;
+        context.fillStyle = 'rgba(0, 0, 0, 0.1)';
+        for (let i = 0; i < canvas.width; i += 4) {
+          context.fillRect(i, 0, 2, canvas.height);
+        }
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        texture.repeat.set(10, 10);
+        return texture;
+      }
 
       // Card Group setup for hanging effect
       const cardWidth = 2.5;
@@ -84,24 +112,78 @@ export function IdCard3D() {
       pivot.position.set(0, 2.5, 0); // Pivot point from which the card hangs
       scene.add(pivot);
 
-      const geometry = new THREE.BoxGeometry(cardWidth, cardHeight, cardDepth);
-      const material = new THREE.MeshStandardMaterial({
-        map: createCardTexture(),
-        roughness: 0.4,
-        metalness: 0.2,
-      });
-      const cardMesh = new THREE.Mesh(geometry, material);
+      const cardGeometry = new THREE.BoxGeometry(cardWidth, cardHeight, cardDepth);
+      const cardMaterials = [
+        new THREE.MeshStandardMaterial({ color: 0xaaaaaa, roughness: 0.1, metalness: 0.2, transparent: true, opacity: 0.8, bumpMap: createStripeTexture(), bumpScale: 0.01 }), // right
+        new THREE.MeshStandardMaterial({ color: 0xaaaaaa, roughness: 0.1, metalness: 0.2, transparent: true, opacity: 0.8, bumpMap: createStripeTexture(), bumpScale: 0.01 }), // left
+        new THREE.MeshStandardMaterial({ color: 0xaaaaaa, roughness: 0.1, metalness: 0.2, transparent: true, opacity: 0.8 }), // top
+        new THREE.MeshStandardMaterial({ color: 0xaaaaaa, roughness: 0.1, metalness: 0.2, transparent: true, opacity: 0.8 }), // bottom
+        new THREE.MeshStandardMaterial({
+            map: createCardTexture(),
+            roughness: 0.1,
+            metalness: 0.2,
+            transparent: true,
+            opacity: 0.9,
+            bumpMap: createStripeTexture(),
+            bumpScale: 0.01,
+          }), // front
+        new THREE.MeshStandardMaterial({
+            map: createCardTexture(),
+            roughness: 0.1,
+            metalness: 0.2,
+            transparent: true,
+            opacity: 0.9,
+            bumpMap: createStripeTexture(),
+            bumpScale: 0.01,
+          }) // back
+      ];
+
+
+      const cardMesh = new THREE.Mesh(cardGeometry, cardMaterials);
       cardMesh.position.set(0, -cardHeight / 2 - 0.2, 0); // Position card below the pivot
 
-      // Add a string
-      const stringMaterial = new THREE.LineBasicMaterial({ color: 0x999999, linewidth: 2 });
-      const stringPoints = [];
-      stringPoints.push(new THREE.Vector3(0, cardHeight / 2 + 0.2, 0));
-      stringPoints.push(new THREE.Vector3(0, 2.5, 0));
-      const stringGeometry = new THREE.BufferGeometry().setFromPoints(stringPoints);
+      // Lanyard texture
+      const createLanyardTexture = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 128;
+        canvas.height = 128;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return null;
+        ctx.fillStyle = '#111111';
+        ctx.fillRect(0, 0, 128, 128);
+        ctx.fillStyle = '#999999';
+        ctx.font = '16px "Source Code Pro"';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.save();
+        ctx.translate(64, 64);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillText('gateremark', 0, 0);
+        ctx.restore();
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        texture.repeat.set(1, 10);
+        return texture;
+      };
 
-      const cardString = new THREE.Line(stringGeometry, stringMaterial);
-      cardMesh.add(cardString);
+      // Add a lanyard strap
+      const strapGeometry = new THREE.PlaneGeometry(0.2, 5);
+      const strapMaterial = new THREE.MeshStandardMaterial({
+        map: createLanyardTexture(),
+        side: THREE.DoubleSide
+      });
+      const strapMesh = new THREE.Mesh(strapGeometry, strapMaterial);
+      strapMesh.position.set(0, 2.5, -0.05); // Position it behind the pivot
+      
+      const clipGeometry = new THREE.CylinderGeometry(0.05, 0.05, 0.1, 16);
+      const clipMaterial = new THREE.MeshStandardMaterial({ color: 0x333333, metalness: 0.8, roughness: 0.2 });
+      const clipMesh = new THREE.Mesh(clipGeometry, clipMaterial);
+      clipMesh.position.set(0, cardHeight / 2 + 0.15, 0);
+      clipMesh.rotation.x = Math.PI / 2;
+      
+      cardMesh.add(clipMesh);
+      pivot.add(strapMesh);
       
       card = new THREE.Group();
       card.add(cardMesh);
@@ -114,6 +196,7 @@ export function IdCard3D() {
     };
 
     const handleMouseMove = (event: MouseEvent) => {
+      if(!currentMount) return;
       const rect = currentMount.getBoundingClientRect();
       const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
       const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
@@ -127,14 +210,14 @@ export function IdCard3D() {
     };
 
     const handleResize = () => {
-      if (!renderer || !camera) return;
+      if (!renderer || !camera || !currentMount) return;
       camera.aspect = currentMount.clientWidth / currentMount.clientHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
     };
 
     const animate = () => {
-      if (!renderer) return;
+      if (!renderer || !scene || !camera) return;
       requestAnimationFrame(animate);
       
       if (pivot) {
@@ -162,10 +245,12 @@ export function IdCard3D() {
     animate();
 
     return () => {
-      currentMount.removeEventListener('mousemove', handleMouseMove);
-      currentMount.removeEventListener('mouseleave', handleMouseLeave);
+      if (currentMount) {
+        currentMount.removeEventListener('mousemove', handleMouseMove);
+        currentMount.removeEventListener('mouseleave', handleMouseLeave);
+      }
       window.removeEventListener('resize', handleResize);
-      if (renderer) {
+      if (renderer && currentMount) {
         currentMount.removeChild(renderer.domElement);
       }
       if (scene) {
@@ -185,3 +270,5 @@ export function IdCard3D() {
 
   return <div ref={mountRef} className="h-full w-full" />;
 }
+
+    
