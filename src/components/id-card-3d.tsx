@@ -48,25 +48,26 @@ export function IdCard3D() {
         if (!context) return new THREE.CanvasTexture(canvas);
 
         // Card background
-        context.fillStyle = '#333333';
+        context.fillStyle = '#1a1a1a'; // Darker grey
         context.fillRect(0, 0, canvas.width, canvas.height);
         
         // Logo
-        context.fillStyle = '#999999';
+        context.fillStyle = '#bbbbbb';
         context.font = 'bold 40px "Source Code Pro"';
         context.fillText('G', 30, 70);
 
-        // GatereMark text
-        context.fillStyle = '#999999';
+        // gateremark text
+        context.fillStyle = '#bbbbbb';
         context.font = '20px "Source Code Pro"';
-        context.fillText('gateremark', 250, 70);
+        context.textAlign = 'right';
+        context.fillText('gateremark', 370, 70);
         
         // Profile picture
         const img = new Image();
         img.crossOrigin = 'anonymous';
-        img.src = 'https://picsum.photos/seed/mark/400/400';
+        img.src = 'https://picsum.photos/seed/mark/400/400?grayscale';
         img.onload = () => {
-            context.drawImage(img, 0, 120, 400, 400);
+            context.drawImage(img, 50, 150, 300, 300);
             texture.needsUpdate = true;
         }
 

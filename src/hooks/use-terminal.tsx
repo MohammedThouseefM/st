@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from 'react';
-import { handleCommand } from '@/lib/command-handler';
+import { handleCommand } from '@/lib/command-handler.tsx';
 
 export type HistoryItem = {
   id: number;

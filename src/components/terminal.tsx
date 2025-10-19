@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from 'react';
-import { useTerminal } from '@/hooks/use-terminal';
-import type { HistoryItem } from '@/hooks/use-terminal';
+import { useTerminal } from '@/hooks/use-terminal.tsx';
+import type { HistoryItem } from '@/hooks/use-terminal.tsx';
 
 const Prompt = () => (
   <span className="text-primary">gatere@portfolio:~$ </span>
@@ -28,6 +28,10 @@ export function Terminal() {
       submitCommand();
     }
   };
+  
+  const commands = [
+    'help', 'about', 'projects', 'skills', 'experience', 'contact', 'education', 'certifications', 'leadership', 'sudo'
+  ];
 
   return (
     <div 
@@ -35,17 +39,9 @@ export function Terminal() {
       onClick={() => inputRef.current?.focus()}
     >
         <div className="flex-none">
-            <p className="flex flex-wrap gap-x-4">
-                <span className="text-primary">help</span>
-                <span className="text-primary">about</span>
-                <span className="text-primary">projects</span>
-                <span className="text-primary">skills</span>
-                <span className="text-primary">experience</span>
-                <span className="text-primary">contact</span>
-                <span className="text-primary">education</span>
-                <span className="text-primary">certifications</span>
-                <span className="text-primary">leadership</span>
-                <span className="text-primary">sudo</span>
+            <p className="flex flex-wrap items-center">
+                <span className="text-primary">{commands.join(' | ')}</span>
+                <span className="text-primary mx-2">|</span>
                 <span className="text-primary">clear</span>
             </p>
         </div>
@@ -58,7 +54,7 @@ export function Terminal() {
                 <span>{item.command}</span>
               </div>
             )}
-            <div>{item.output}</div>
+            <div className="text-accent">{item.output}</div>
           </div>
         ))}
       </div>
