@@ -4,8 +4,11 @@ import { useEffect, useRef } from 'react';
 import { useTerminal } from '@/hooks/use-terminal.tsx';
 import type { HistoryItem } from '@/hooks/use-terminal.tsx';
 
-const Prompt = () => (
-  <span className="text-primary">gatere@portfolio:~$ </span>
+const Prompt = ({ command }: { command?: string }) => (
+  <div className="flex items-center">
+    <span className="text-secondary">gatere@portfolio:~$</span>
+    {command !== undefined && <span className="text-primary ml-2">{command}</span>}
+  </div>
 );
 
 export function Terminal() {
@@ -48,25 +51,20 @@ export function Terminal() {
       <div ref={scrollRef} className="flex-grow overflow-y-auto pr-2 mt-4">
         {history.map((item: HistoryItem) => (
           <div key={item.id} className="mb-2">
-            {item.command !== undefined && (
-              <div className="flex items-center">
-                <Prompt />
-                <span>{item.command}</span>
-              </div>
-            )}
+            <Prompt command={item.command} />
             <div className="text-accent">{item.output}</div>
           </div>
         ))}
       </div>
       <div className="flex items-center pt-2 mt-auto">
-        <Prompt />
+        <span className="text-secondary">gatere@portfolio:~$</span>
         <input
           ref={inputRef}
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="flex-1 bg-transparent border-none outline-none text-foreground"
+          className="flex-1 bg-transparent border-none outline-none text-primary ml-2"
           autoFocus
         />
       </div>

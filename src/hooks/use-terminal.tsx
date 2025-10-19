@@ -5,7 +5,7 @@ import { handleCommand } from '@/lib/command-handler.tsx';
 
 export type HistoryItem = {
   id: number;
-  command?: string;
+  command: string;
   output: React.ReactNode;
 };
 
@@ -35,7 +35,7 @@ export const useTerminal = () => {
 
     const commandHistoryItem: HistoryItem = {
       id: history.length + 1,
-      command: input,
+      command: trimmedInput,
       output
     };
     
