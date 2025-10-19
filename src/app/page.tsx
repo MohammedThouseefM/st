@@ -1,15 +1,24 @@
 import { IdCard3D } from '@/components/id-card-3d';
 import { Terminal } from '@/components/terminal';
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-background md:flex-row">
-      <div className="flex h-1/2 w-full items-center justify-center p-4 md:h-screen md:w-1/2">
-        <IdCard3D />
-      </div>
-      <div className="h-screen w-full p-4 md:h-screen md:w-1/2">
-        <Terminal />
-      </div>
-    </main>
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex flex-1 flex-col md:flex-row">
+        <div className="flex w-full md:w-1/3 items-center justify-center p-4 flex-col">
+          <div className="w-full h-full flex-grow flex items-center justify-center">
+            <IdCard3D />
+          </div>
+          <p className="mt-4 text-primary">[Interactive 3D Card]</p>
+        </div>
+        <div className="w-full md:w-2/3 h-full p-4 border-l-2 border-primary">
+          <Terminal />
+        </div>
+      </main>
+      <Footer />
+    </div>
   );
 }

@@ -1,33 +1,22 @@
 "use client";
 
 const commands = [
-  { cmd: 'about', desc: 'Who is Thouseef?' },
-  { cmd: 'projects', desc: 'View my projects.' },
-  { cmd: 'skills', desc: 'List of my technical skills.' },
-  { cmd: 'experience', desc: 'My professional experience.' },
-  { cmd: 'education', desc: 'My educational background.' },
-  { cmd: 'contact', desc: 'How to reach me.' },
-  { cmd: 'clear', desc: 'Clear the terminal screen.' },
-  { cmd: 'sudo', desc: 'Try to be a superuser.' },
+  'help', 'about', 'projects', 'skills', 'experience', 'contact', 'education', 'certifications', 'leadership', 'sudo', 'clear'
 ];
 
 export const Help = () => (
   <div>
-    <p className="mb-2">Available commands:</p>
-    <ul className="space-y-1">
-      {commands.map(({ cmd, desc }) => (
-        <li key={cmd} className="flex">
-          <span className="w-24 text-primary">{cmd}</span>
-          <span className="text-accent">{desc}</span>
-        </li>
+    <p className="flex flex-wrap gap-x-4">
+      {commands.map((cmd) => (
+        <span key={cmd} className="text-primary">{cmd}</span>
       ))}
-    </ul>
+    </p>
   </div>
 );
 
 export const About = () => (
     <p>
-      I am a passionate software engineer with a knack for building elegant and efficient solutions. 
+      Hi, I&apos;m Mark Gatere, a Software & AI Engineer. I am a passionate software engineer with a knack for building elegant and efficient solutions. 
       My journey in tech has been driven by a relentless curiosity and a desire to solve real-world problems. 
       This terminal is a small reflection of my love for creative and interactive development.
     </p>
@@ -87,13 +76,26 @@ export const Education = () => (
     </div>
 );
 
+export const Certifications = () => (
+    <div>
+        <p className="text-primary font-bold">Google Certified Professional Cloud Architect</p>
+    </div>
+)
+
+export const Leadership = () => (
+    <div>
+        <p className="text-primary font-bold">Lead Developer - Open Source Contributor</p>
+    </div>
+)
+
+
 export const Contact = () => (
     <div>
         <p>You can reach me via:</p>
         <ul className="mt-2 space-y-1">
-            <li><span className="text-primary w-20 inline-block">Email:</span> <a href="mailto:thouseef@example.com" className="text-accent underline">thouseef@example.com</a></li>
-            <li><span className="text-primary w-20 inline-block">LinkedIn:</span> <a href="#" className="text-accent underline">linkedin.com/in/thouseef</a></li>
-            <li><span className="text-primary w-20 inline-block">GitHub:</span> <a href="#" className="text-accent underline">github.com/thouseef</a></li>
+            <li><span className="text-primary w-20 inline-block">Email:</span> <a href="mailto:mark.gatere@example.com" className="text-accent underline">mark.gatere@example.com</a></li>
+            <li><span className="text-primary w-20 inline-block">LinkedIn:</span> <a href="#" className="text-accent underline">linkedin.com/in/markgatere</a></li>
+            <li><span className="text-primary w-20 inline-block">GitHub:</span> <a href="#" className="text-accent underline">github.com/markgatere</a></li>
         </ul>
     </div>
 );

@@ -11,14 +11,15 @@ export type HistoryItem = {
 
 const welcomeMessage = (
   <div>
-    <p>Welcome to Thouseef's interactive portfolio.</p>
-    <p>Type 'help' for a list of commands.</p>
+    <p>Hi, I&apos;m Mark Gatere, a Software & AI Engineer.</p>
+    <p>Welcome to my interactive &apos;AI powered&apos; portfolio terminal!</p>
+    <p>Type &apos;help&apos; to see available commands.</p>
   </div>
 );
 
 export const useTerminal = () => {
   const [history, setHistory] = useState<HistoryItem[]>([
-    { id: 0, output: welcomeMessage }
+    { id: 0, command: 'welcome', output: welcomeMessage }
   ]);
   const [input, setInput] = useState('');
 

@@ -42,71 +42,44 @@ export function IdCard3D() {
       // Card Texture
       const createCardTexture = () => {
         const canvas = document.createElement('canvas');
-        canvas.width = 512;
-        canvas.height = 300;
+        canvas.width = 400;
+        canvas.height = 640;
         const context = canvas.getContext('2d');
         if (!context) return new THREE.CanvasTexture(canvas);
 
-        context.fillStyle = '#1a1a1a';
+        // Card background
+        context.fillStyle = '#333333';
         context.fillRect(0, 0, canvas.width, canvas.height);
-        context.strokeStyle = '#98FF98';
-        context.lineWidth = 4;
-        context.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
         
-        context.fillStyle = '#98FF98';
+        // Logo
+        context.fillStyle = '#999999';
         context.font = 'bold 40px "Source Code Pro"';
-        context.fillText('THOUSEEF', 30, 70);
+        context.fillText('G', 30, 70);
 
-        context.fillStyle = '#BBBBBB';
-        context.font = '24px "Source Code Pro"';
-        context.fillText('Software Engineer', 30, 110);
+        // GatereMark text
+        context.fillStyle = '#999999';
+        context.font = '20px "Source Code Pro"';
+        context.fillText('gateremark', 250, 70);
         
-        context.strokeStyle = '#BBBBBB';
-        context.lineWidth = 2;
-        context.beginPath();
-        context.moveTo(30, 130);
-        context.lineTo(482, 130);
-        context.stroke();
-        
-        // "DIGITAL ID" Label
-        const idLabelText = 'DIGITAL ID';
-        context.font = 'bold 20px "Source Code Pro"';
-        const textMetrics = context.measureText(idLabelText);
-        const textWidth = textMetrics.width;
-        const labelPadding = 10;
-        const labelX = 380 - (textWidth / 2) - labelPadding + 60;
-        const labelY = 30;
-        const labelWidth = textWidth + (labelPadding * 2);
-        const labelHeight = 30;
-
-        context.fillStyle = '#98FF98';
-        context.fillRect(labelX, labelY, labelWidth, labelHeight);
-        
-        context.fillStyle = '#1a1a1a';
-        context.fillText(idLabelText, labelX + labelPadding, labelY + 22);
-
-        context.fillStyle = '#BBBBBB';
-        const qrSize = 8;
-        const pixelSize = 15;
-        const qrX = 350;
-        const qrY = 150;
-        for (let i = 0; i < qrSize; i++) {
-          for (let j = 0; j < qrSize; j++) {
-            if (Math.random() > 0.5) {
-              context.fillRect(qrX + i * pixelSize, qrY + j * pixelSize, pixelSize, pixelSize);
-            }
-          }
+        // Profile picture
+        const img = new Image();
+        img.src = 'https://picsum.photos/seed/mark/400/400';
+        img.onload = () => {
+            context.drawImage(img, 0, 120, 400, 400);
+            texture.needsUpdate = true;
         }
-        return new THREE.CanvasTexture(canvas);
+
+        const texture = new THREE.CanvasTexture(canvas);
+        return texture;
       };
 
       // Card Group setup for hanging effect
-      const cardWidth = 4;
-      const cardHeight = 2.37;
+      const cardWidth = 2.5;
+      const cardHeight = 4;
       const cardDepth = 0.05;
 
       pivot = new THREE.Object3D();
-      pivot.position.set(0, 1.5, 0); // Pivot point from which the card hangs
+      pivot.position.set(0, 2.5, 0); // Pivot point from which the card hangs
       scene.add(pivot);
 
       const geometry = new THREE.BoxGeometry(cardWidth, cardHeight, cardDepth);
@@ -119,11 +92,12 @@ export function IdCard3D() {
       cardMesh.position.set(0, -cardHeight / 2 - 0.2, 0); // Position card below the pivot
 
       // Add a string
-      const stringMaterial = new THREE.LineBasicMaterial({ color: 0x98FF98, linewidth: 2 });
-      const stringGeometry = new THREE.BufferGeometry().setFromPoints([
-        new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(0, cardHeight/2 + 0.2, 0)
-      ]);
+      const stringMaterial = new THREE.LineBasicMaterial({ color: 0x999999, linewidth: 2 });
+      const stringPoints = [];
+      stringPoints.push(new THREE.Vector3(0, cardHeight / 2 + 0.2, 0));
+      stringPoints.push(new THREE.Vector3(0, 2.5, 0));
+      const stringGeometry = new THREE.BufferGeometry().setFromPoints(stringPoints);
+
       const cardString = new THREE.Line(stringGeometry, stringMaterial);
       cardMesh.add(cardString);
       

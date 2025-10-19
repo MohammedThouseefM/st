@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: 'Terminal Portfolio',
-  description: 'An interactive terminal portfolio for Thouseef.',
+  description: 'An interactive terminal portfolio for Mark Gatere.',
 };
 
 export default function RootLayout({
@@ -19,7 +19,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-code antialiased">
+      <body className="font-code antialiased bg-background text-primary">
         {children}
         <Toaster />
       </body>
