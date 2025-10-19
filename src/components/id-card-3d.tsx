@@ -149,10 +149,10 @@ export function IdCard3D() {
         canvas.height = 128;
         const ctx = canvas.getContext('2d');
         if (!ctx) return null;
-        ctx.fillStyle = '#111111';
+        ctx.fillStyle = '#333333';
         ctx.fillRect(0, 0, 128, 128);
-        ctx.fillStyle = '#999999';
-        ctx.font = '16px "Source Code Pro"';
+        ctx.fillStyle = '#aaaaaa';
+        ctx.font = 'bold 16px "Source Code Pro"';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.save();
@@ -270,5 +270,3 @@ export function IdCard3D() {
 
   return <div ref={mountRef} className="h-full w-full" />;
 }
-
-    
