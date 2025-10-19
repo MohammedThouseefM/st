@@ -17,16 +17,18 @@ const welcomeMessage = (
   </div>
 );
 
+const initialHistory: HistoryItem[] = [
+  { id: 0, command: 'welcome', output: welcomeMessage }
+];
+
 export const useTerminal = () => {
-  const [history, setHistory] = useState<HistoryItem[]>([
-    { id: 0, command: 'welcome', output: welcomeMessage }
-  ]);
+  const [history, setHistory] = useState<HistoryItem[]>(initialHistory);
   const [input, setInput] = useState('');
 
   const submitCommand = useCallback(() => {
     const trimmedInput = input.trim();
     if (trimmedInput.toLowerCase() === 'clear') {
-      setHistory([]);
+      setHistory(initialHistory);
       setInput('');
       return;
     }
