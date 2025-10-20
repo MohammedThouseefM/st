@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 const Prompt = () => (
-  <span className="text-primary">gatere@portfolio:~$ </span>
+  <span className="text-green-400 text-xs sm:text-base whitespace-nowrap">gatere@portfolio:~$ </span>
 );
 
 export function Footer() {
@@ -25,9 +25,9 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 z-10 w-full p-4 border-t-2 border-primary flex justify-between items-center bg-background">
+    <footer className="fixed bottom-0 left-0 right-0 z-10 w-full p-4 border-t-2 border-primary flex justify-between items-center bg-background text-green-400">
       <Prompt />
-      <span className="text-primary">{currentTime}</span>
+      <span className="text-green-400 text-xs sm:text-base whitespace-nowrap">{currentTime}</span>
     </footer>
   );
 }
