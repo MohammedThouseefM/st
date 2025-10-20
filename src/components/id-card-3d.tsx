@@ -50,32 +50,21 @@ export function IdCard3D() {
         // Clear background for transparency
         context.clearRect(0, 0, canvas.width, canvas.height);
         
-        // Logo (Stylized 'M')
+        // Logo (Stylized 'MT')
         context.fillStyle = '#bbbbbb';
         context.font = 'bold 2.5rem "Source Code Pro"';
-        context.beginPath();
-        context.moveTo(30, 70);
-        context.lineTo(50, 30);
-        context.lineTo(70, 70);
-        context.lineTo(90, 30);
-        context.lineTo(110, 70);
-        context.lineTo(95, 70);
-        context.lineTo(80, 45);
-        context.lineTo(65, 70);
-        context.closePath();
-        context.fill();
+        context.fillText('MT', 30, 70);
 
-
-        // gateremark text
+        // thouseef text
         context.fillStyle = '#bbbbbb';
         context.font = '1.25rem "Source Code Pro"';
         context.textAlign = 'right';
-        context.fillText('gateremark', 370, 70);
+        context.fillText('thouseef', 370, 70);
         
         // Profile picture
         const img = new Image();
         img.crossOrigin = 'anonymous';
-        img.src = 'https://picsum.photos/seed/mark/400/400?grayscale';
+        img.src = 'https://picsum.photos/seed/thouseef/400/400?grayscale';
         img.onload = () => {
             context.drawImage(img, 50, 150, 300, 300);
             texture.needsUpdate = true;
@@ -158,7 +147,7 @@ export function IdCard3D() {
         ctx.save();
         ctx.translate(64, 64);
         ctx.rotate(-Math.PI / 2);
-        ctx.fillText('gateremark', 0, 0);
+        ctx.fillText('thouseef', 0, 0);
         ctx.restore();
         const texture = new THREE.CanvasTexture(canvas);
         texture.wrapS = THREE.RepeatWrapping;

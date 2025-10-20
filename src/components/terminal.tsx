@@ -8,7 +8,7 @@ import { TypewriterOutput } from './typewriter-output';
 
 const Prompt = ({ command }: { command?: string }) => (
   <div className="flex items-center">
-    <span className="text-blue-400">gatere@portfolio:~$</span>
+    <span className="text-blue-400">thouseef@portfolio:~$</span>
     {command !== undefined && <span className="text-green-400 ml-2">{command}</span>}
   </div>
 );
@@ -58,7 +58,7 @@ export function Terminal() {
           </div>
         ))}
         <div className="flex items-center pt-2">
-            <span className="text-blue-400">gatere@portfolio:~$</span>
+            <span className="text-blue-400">thouseef@portfolio:~$</span>
             <input
               ref={inputRef}
               type="text"

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 const Prompt = () => (
-  <span className="text-green-400 text-xs sm:text-base whitespace-nowrap">gatere@portfolio:~$ </span>
+  <span className="text-green-400 text-xs sm:text-base whitespace-nowrap">thouseef@portfolio:~$ </span>
 );
 
 export function Footer() {

@@ -12,7 +12,7 @@ export type HistoryItem = {
 
 const welcomeMessage = (
     <div>
-      <p>Hi, I&apos;m Mark Gatere, a Software & AI Engineer.</p>
+      <p>Hi, I&apos;m Mohammed Thouseef M, a BCA Student & Web Developer.</p>
       <p>Welcome to my interactive &apos;AI powered&apos; portfolio terminal!</p>
       <p className="text-primary">Type &apos;help&apos; to see available commands.</p>
     </div>
