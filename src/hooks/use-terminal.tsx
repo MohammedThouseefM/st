@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useCallback } from 'react';
@@ -13,7 +14,7 @@ const welcomeMessage = (
   <div>
     <p>Hi, I&apos;m Mark Gatere, a Software & AI Engineer.</p>
     <p>Welcome to my interactive &apos;AI powered&apos; portfolio terminal!</p>
-    <p>Type &apos;help&apos; to see available commands.</p>
+    <p className="text-primary">Type &apos;help&apos; to see available commands.</p>
   </div>
 );
 
