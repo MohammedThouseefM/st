@@ -52,7 +52,7 @@ export function IdCard3D() {
         
         // Logo (Stylized 'M')
         context.fillStyle = '#bbbbbb';
-        context.font = 'bold 40px "Source Code Pro"';
+        context.font = 'bold 2.5rem "Source Code Pro"';
         context.beginPath();
         context.moveTo(30, 70);
         context.lineTo(50, 30);
@@ -68,7 +68,7 @@ export function IdCard3D() {
 
         // gateremark text
         context.fillStyle = '#bbbbbb';
-        context.font = '20px "Source Code Pro"';
+        context.font = '1.25rem "Source Code Pro"';
         context.textAlign = 'right';
         context.fillText('gateremark', 370, 70);
         
@@ -152,7 +152,7 @@ export function IdCard3D() {
         ctx.fillStyle = '#333333';
         ctx.fillRect(0, 0, 128, 128);
         ctx.fillStyle = '#aaaaaa';
-        ctx.font = 'bold 16px "Source Code Pro"';
+        ctx.font = 'bold 1rem "Source Code Pro"';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.save();
@@ -270,3 +270,5 @@ export function IdCard3D() {
 
   return <div ref={mountRef} className="h-full w-full" />;
 }
+
+    

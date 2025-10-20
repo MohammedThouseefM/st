@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef } from 'react';
@@ -33,7 +34,7 @@ export function Terminal() {
   };
   
   const commands = [
-    'help', 'about', 'projects', 'skills', 'experience', 'contact', 'education', 'certifications', 'leadership', 'sudo'
+    'help', 'about', 'projects', 'skills', 'experience', 'contact', 'education', 'certifications', 'leadership', 'sudo' , 'clear'
   ];
 
   return (
@@ -44,8 +45,6 @@ export function Terminal() {
         <div className="flex-none">
             <p className="flex flex-wrap items-center">
                 <span className="text-primary">{commands.join(' | ')}</span>
-                <span className="text-primary mx-2">|</span>
-                <span className="text-primary">clear</span>
             </p>
         </div>
       <div ref={scrollRef} className="flex-grow overflow-y-auto pr-2 mt-4 text-accent">
@@ -71,3 +70,5 @@ export function Terminal() {
     </div>
   );
 }
+
+    
