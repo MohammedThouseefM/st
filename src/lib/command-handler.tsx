@@ -1,41 +1,44 @@
+import { TypewriterOutput } from '@/components/typewriter-output';
 import { Help, About, Projects, Skills, Experience, Education, Contact, Certifications, Leadership } from '@/components/command-outputs';
 
 export const handleCommand = (command: string): React.ReactNode => {
   const [cmd] = command.toLowerCase().split(' ');
 
+  const wrapInTypewriter = (component: React.ReactNode) => <TypewriterOutput>{component}</TypewriterOutput>;
+
   switch (cmd) {
     case 'help':
-      return <Help />;
+      return wrapInTypewriter(<Help />);
     case 'about':
-      return <About />;
+      return wrapInTypewriter(<About />);
     case 'projects':
-      return <Projects />;
+      return wrapInTypewriter(<Projects />);
     case 'skills':
-      return <Skills />;
+      return wrapInTypewriter(<Skills />);
     case 'experience':
-      return <Experience />;
+      return wrapInTypewriter(<Experience />);
     case 'education':
-      return <Education />;
+      return wrapInTypewriter(<Education />);
     case 'certifications':
-      return <Certifications />;
+      return wrapInTypewriter(<Certifications />);
     case 'leadership':
-        return <Leadership />;
+        return wrapInTypewriter(<Leadership />);
     case 'contact':
     case 'contact-info':
-      return <Contact />;
+      return wrapInTypewriter(<Contact />);
     case 'sudo':
-        return <p>Permission denied: you are not the root user.</p>;
+        return wrapInTypewriter(<p>Permission denied: you are not the root user.</p>);
     case 'welcome':
-        return (
+        return wrapInTypewriter(
             <div>
               <p>Hi, I&apos;m Mark Gatere, a Software & AI Engineer.</p>
               <p>Welcome to my interactive &apos;AI powered&apos; portfolio terminal!</p>
-              <p>Type &apos;help&apos; to see available commands.</p>
+              <p className="text-primary">Type &apos;help&apos; to see available commands.</p>
             </div>
           );
     case '':
         return '';
     default:
-      return <p>Command not found: {command}. Type 'help' for a list of available commands.</p>;
+      return wrapInTypewriter(<p>Command not found: {command}. Type 'help' for a list of available commands.</p>);
   }
 };
