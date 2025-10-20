@@ -34,26 +34,22 @@ export function Terminal() {
     }
   };
   
-  const commands = [
-    'help', 'about', 'projects', 'skills', 'experience', 'contact', 'education', 'certifications', 'leadership', 'sudo' , 'clear'
-  ];
-
   return (
     <div 
       className="h-full w-full bg-background p-4 font-code text-base flex flex-col"
       onClick={() => inputRef.current?.focus()}
     >
-        <div className="flex-none">
-            <p className="text-green-400 flex flex-wrap items-center">
-                {commands.join(' | ')}
-            </p>
-        </div>
       <div ref={scrollRef} className="flex-grow overflow-y-auto pr-2 mt-4 text-white">
-        {history.map((item: HistoryItem) => (
+        {history.map((item: HistoryItem, index) => (
           <div key={item.id} className="mb-2">
             <Prompt command={item.command} />
             <div className="text-white">
-                <TypewriterOutput>{item.output}</TypewriterOutput>
+                {/* We only want to animate the last item in the history */}
+                {index === history.length - 1 ? (
+                  <TypewriterOutput>{item.output}</TypewriterOutput>
+                ) : (
+                  item.output
+                )}
             </div>
           </div>
         ))}

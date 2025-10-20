@@ -22,22 +22,26 @@ const extractText = (node: React.ReactNode): string => {
 export const TypewriterOutput = ({ children }: { children: React.ReactNode }) => {
   const originalText = useMemo(() => extractText(children), [children]);
   const [displayedText, setDisplayedText] = useState('');
+  const [isAnimating, setIsAnimating] = useState(true);
 
   useEffect(() => {
-    if (originalText) {
-      let i = 0;
-      setDisplayedText(''); // Reset on new children
-      const interval = setInterval(() => {
-        if (i < originalText.length) {
-          setDisplayedText(prev => prev + originalText.charAt(i));
-          i++;
-        } else {
-          clearInterval(interval);
-        }
-      }, 20); // Adjust speed here
+    let i = 0;
+    setDisplayedText(''); // Reset on new children
+    setIsAnimating(true);
+    const interval = setInterval(() => {
+      if (i < originalText.length) {
+        setDisplayedText(prev => prev + originalText.charAt(i));
+        i++;
+      } else {
+        clearInterval(interval);
+        setIsAnimating(false);
+      }
+    }, 10); // Adjust speed here
 
-      return () => clearInterval(interval);
-    }
+    return () => {
+        clearInterval(interval);
+        setIsAnimating(false);
+    };
   }, [originalText]);
 
   // This is a trick to preserve the original structure and styling.
@@ -47,6 +51,7 @@ export const TypewriterOutput = ({ children }: { children: React.ReactNode }) =>
     
     const recursiveClone = (n: React.ReactNode): React.ReactNode => {
         if (typeof n === 'string') {
+            if (currentText.length === 0) return '';
             const len = n.length;
             const part = currentText.substring(0, len);
             currentText = currentText.substring(len);
@@ -70,6 +75,9 @@ export const TypewriterOutput = ({ children }: { children: React.ReactNode }) =>
     return recursiveClone(node);
   };
 
+  if (isAnimating) {
+    return <>{cloneWithAnimatedText(children, displayedText)}</>;
+  }
 
-  return <>{cloneWithAnimatedText(children, displayedText)}</>;
+  return <>{children}</>;
 };
