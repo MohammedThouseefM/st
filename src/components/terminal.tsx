@@ -38,17 +38,17 @@ export function Terminal() {
 
   return (
     <div 
-      className="h-full w-full bg-background p-4 font-code text-base text-foreground overflow-hidden flex flex-col"
+      className="h-full w-full bg-background p-4 font-code text-base flex flex-col"
       onClick={() => inputRef.current?.focus()}
     >
         <div className="flex-none">
             <p className="flex flex-wrap items-center">
-                <span className="text-primary">{commands.join(' | ')}</span>
-                <span className="text-primary mx-2">|</span>
-                <span className="text-primary">clear</span>
+                <span className="text-accent">{commands.join(' | ')}</span>
+                <span className="text-accent mx-2">|</span>
+                <span className="text-accent">clear</span>
             </p>
         </div>
-      <div ref={scrollRef} className="flex-grow overflow-y-auto pr-2 mt-4 no-scrollbar">
+      <div ref={scrollRef} className="flex-grow overflow-y-auto pr-2 mt-4 text-accent">
         {history.map((item: HistoryItem) => (
           <div key={item.id} className="mb-2">
             <Prompt command={item.command} />
