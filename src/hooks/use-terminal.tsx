@@ -42,7 +42,7 @@ export const useTerminal = () => {
     const commandHistoryItem: HistoryItem = {
       id: history.length + 1,
       command: trimmedInput,
-      output: output
+      output: <TypewriterOutput>{output}</TypewriterOutput>
     };
     
     setHistory(prev => [...prev, commandHistoryItem]);
