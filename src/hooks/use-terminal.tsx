@@ -3,7 +3,6 @@
 
 import { useState, useCallback } from 'react';
 import { handleCommand } from '@/lib/command-handler.tsx';
-import { TypewriterOutput } from '@/components/typewriter-output';
 
 export type HistoryItem = {
   id: number;
@@ -40,7 +39,7 @@ export const useTerminal = () => {
     const commandHistoryItem: HistoryItem = {
       id: history.length + 1,
       command: trimmedInput,
-      output: <TypewriterOutput>{output}</TypewriterOutput>
+      output: output
     };
     
     setHistory(prev => [...prev, commandHistoryItem]);
