@@ -4,6 +4,7 @@
 import { useEffect, useRef } from 'react';
 import { useTerminal } from '@/hooks/use-terminal.tsx';
 import type { HistoryItem } from '@/hooks/use-terminal.tsx';
+import { TypewriterOutput } from './typewriter-output';
 
 const Prompt = ({ command }: { command?: string }) => (
   <div className="flex items-center">
@@ -43,15 +44,17 @@ export function Terminal() {
       onClick={() => inputRef.current?.focus()}
     >
         <div className="flex-none">
-            <p className="flex flex-wrap items-center">
-                <span className="text-green-400">{commands.join(' | ')}</span>
+            <p className="text-green-400 flex flex-wrap items-center">
+                {commands.join(' | ')}
             </p>
         </div>
       <div ref={scrollRef} className="flex-grow overflow-y-auto pr-2 mt-4 text-white">
         {history.map((item: HistoryItem) => (
           <div key={item.id} className="mb-2">
             <Prompt command={item.command} />
-            <div className="text-white">{item.output}</div>
+            <div className="text-white">
+                <TypewriterOutput>{item.output}</TypewriterOutput>
+            </div>
           </div>
         ))}
         <div className="flex items-center pt-2">
@@ -70,5 +73,3 @@ export function Terminal() {
     </div>
   );
 }
-
-    

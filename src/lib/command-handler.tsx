@@ -1,46 +1,42 @@
-import { TypewriterOutput } from '@/components/typewriter-output';
+
 import { Help, About, Projects, Skills, Experience, Education, Contact, Certifications, Leadership } from '@/components/command-outputs';
 
 export const handleCommand = (command: string): React.ReactNode => {
   const [cmd] = command.toLowerCase().split(' ');
 
-  const wrapInTypewriter = (content: React.ReactNode) => <TypewriterOutput>{content}</TypewriterOutput>;
-
   switch (cmd) {
     case 'help':
-      return wrapInTypewriter(<Help />);
+      return <Help />;
     case 'about':
-      return wrapInTypewriter(<About />);
+      return <About />;
     case 'projects':
-      return wrapInTypewriter(<Projects />);
+      return <Projects />;
     case 'skills':
-      return wrapInTypewriter(<Skills />);
+      return <Skills />;
     case 'experience':
-      return wrapInTypewriter(<Experience />);
+      return <Experience />;
     case 'education':
-      return wrapInTypewriter(<Education />);
+      return <Education />;
     case 'certifications':
-      return wrapInTypewriter(<Certifications />);
+      return <Certifications />;
     case 'leadership':
-        return wrapInTypewriter(<Leadership />);
+        return <Leadership />;
     case 'contact':
     case 'contact-info':
-      return wrapInTypewriter(<Contact />);
+      return <Contact />;
     case 'sudo':
-        return wrapInTypewriter(<p>Permission denied: you are not the root user.</p>);
+        return <p>Permission denied: you are not the root user.</p>;
     case 'welcome':
         return (
-            <TypewriterOutput>
               <div>
                 <p>Hi, I&apos;m Mark Gatere, a Software & AI Engineer.</p>
                 <p>Welcome to my interactive &apos;AI powered&apos; portfolio terminal!</p>
                 <p className="text-primary">Type &apos;help&apos; to see available commands.</p>
               </div>
-            </TypewriterOutput>
           );
     case '':
         return '';
     default:
-      return wrapInTypewriter(<p>Command not found: {command}. Type 'help' for a list of available commands.</p>);
+      return <p>Command not found: {command}. Type 'help' for a list of available commands.</p>;
   }
 };

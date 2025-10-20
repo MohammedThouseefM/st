@@ -3,7 +3,6 @@
 
 import { useState, useCallback } from 'react';
 import { handleCommand } from '@/lib/command-handler.tsx';
-import { TypewriterOutput } from '@/components/typewriter-output';
 
 export type HistoryItem = {
   id: number;
@@ -12,13 +11,11 @@ export type HistoryItem = {
 };
 
 const welcomeMessage = (
-  <TypewriterOutput>
     <div>
       <p>Hi, I&apos;m Mark Gatere, a Software & AI Engineer.</p>
       <p>Welcome to my interactive &apos;AI powered&apos; portfolio terminal!</p>
       <p className="text-primary">Type &apos;help&apos; to see available commands.</p>
     </div>
-  </TypewriterOutput>
 );
 
 const initialHistory: HistoryItem[] = [
