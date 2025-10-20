@@ -25,7 +25,7 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="w-full p-4 border-t-2 border-primary flex justify-between items-center">
+    <footer className="fixed bottom-0 left-0 right-0 z-10 w-full p-4 border-t-2 border-primary flex justify-between items-center bg-background">
       <Prompt />
       <span className="text-primary">{currentTime}</span>
     </footer>
