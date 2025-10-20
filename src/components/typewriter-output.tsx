@@ -46,15 +46,15 @@ export const TypewriterOutput = ({ children }: { children: React.ReactNode }) =>
 
   // This is a trick to preserve the original structure and styling.
   // We find the text nodes and replace them with the animated version.
-  const cloneWithAnimatedText = (node: React.ReactNode, text: string): React.ReactNode => {
-    let currentText = text;
+  const cloneWithAnimatedText = (node: React.ReactNode): React.ReactNode => {
+    let text = displayedText;
     
     const recursiveClone = (n: React.ReactNode): React.ReactNode => {
         if (typeof n === 'string') {
-            if (currentText.length === 0) return '';
+            if (text.length === 0) return '';
             const len = n.length;
-            const part = currentText.substring(0, len);
-            currentText = currentText.substring(len);
+            const part = text.substring(0, len);
+            text = text.substring(len);
             return part;
         }
 
@@ -72,11 +72,11 @@ export const TypewriterOutput = ({ children }: { children: React.ReactNode }) =>
         return n;
     }
 
-    return recursiveClone(node);
+    return recursiveClone(children);
   };
 
   if (isAnimating) {
-    return <>{cloneWithAnimatedText(children, displayedText)}</>;
+    return <>{cloneWithAnimatedText(children)}</>;
   }
 
   return <>{children}</>;
