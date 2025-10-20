@@ -14,7 +14,7 @@ export default function Home() {
           </div>
           <p className="mt-4 text-accent">[Interactive 3D Card]</p>
         </div>
-        <div className="w-full md:w-2/3 h-full p-4 border-l-2 border-primary">
+        <div className="w-full md:w-2/3 h-full p-4 border-l border-primary">
           <Terminal />
         </div>
       </main>
