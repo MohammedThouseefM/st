@@ -1,3 +1,4 @@
+
 "use client";
 
 const commands = [
@@ -6,17 +7,15 @@ const commands = [
 
 export const Help = () => (
   <div>
-    <p className="flex flex-wrap gap-x-4">
-      {commands.map((cmd) => (
-        <span key={cmd} className="text-primary">{cmd}</span>
-      ))}
-    </p>
+    {commands.map((cmd) => (
+      <p key={cmd} className="text-primary">{cmd}</p>
+    ))}
   </div>
 );
 
 export const About = () => (
     <p>
-      Hi, I&apos;m Mark Gatere, a Software & AI Engineer. I am a passionate software engineer with a knack for building elegant and efficient solutions. 
+      Hi, I'm Mark Gatere, a Software & AI Engineer. I am a passionate software engineer with a knack for building elegant and efficient solutions. 
       My journey in tech has been driven by a relentless curiosity and a desire to solve real-world problems. 
       This terminal is a small reflection of my love for creative and interactive development.
     </p>
@@ -99,3 +98,4 @@ export const Contact = () => (
         </ul>
     </div>
 );
+
