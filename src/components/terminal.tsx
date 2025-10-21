@@ -12,6 +12,10 @@ const Prompt = ({ command }: { command?: string }) => (
   </div>
 );
 
+const commands = [
+  'help', 'about', 'projects', 'skills', 'experience', 'contact', 'education', 'certifications', 'leadership', 'sudo', 'clear'
+];
+
 export function Terminal() {
   const { history, input, setInput, submitCommand } = useTerminal();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -38,7 +42,12 @@ export function Terminal() {
       className="h-full w-full bg-background p-4 font-code text-base flex flex-col"
       onClick={() => inputRef.current?.focus()}
     >
-      <div ref={scrollRef} className="flex-grow overflow-y-auto pr-2 mt-4 text-white">
+      <div className="flex-none pb-2 border-b-2 border-primary mb-2">
+        <p className="text-green-400 flex flex-wrap items-center justify-center gap-x-2 text-xs sm:text-sm">
+          {commands.map((cmd, i) => <span key={cmd}>{cmd}{i < commands.length - 1 ? <span className="text-primary mx-1">|</span> : ''}</span>)}
+        </p>
+      </div>
+      <div ref={scrollRef} className="flex-grow overflow-y-auto pr-2 text-white">
         {history.map((item: HistoryItem) => (
           <div key={item.id} className="mb-2">
             <Prompt command={item.command} />
