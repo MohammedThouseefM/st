@@ -4,7 +4,6 @@
 import { useEffect, useRef } from 'react';
 import { useTerminal } from '@/hooks/use-terminal.tsx';
 import type { HistoryItem } from '@/hooks/use-terminal.tsx';
-import { TypewriterOutput } from './typewriter-output';
 
 const Prompt = ({ command }: { command?: string }) => (
   <div className="flex items-center">
@@ -40,16 +39,11 @@ export function Terminal() {
       onClick={() => inputRef.current?.focus()}
     >
       <div ref={scrollRef} className="flex-grow overflow-y-auto pr-2 mt-4 text-white">
-        {history.map((item: HistoryItem, index) => (
+        {history.map((item: HistoryItem) => (
           <div key={item.id} className="mb-2">
             <Prompt command={item.command} />
             <div className="text-white">
-                {/* We only want to animate the last item in the history */}
-                {index === history.length - 1 ? (
-                  <TypewriterOutput>{item.output}</TypewriterOutput>
-                ) : (
-                  item.output
-                )}
+              {item.output}
             </div>
           </div>
         ))}
