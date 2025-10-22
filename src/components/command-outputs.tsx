@@ -20,7 +20,7 @@ export const Help = () => (
     <div className="mt-2">
         {helpCommands.map(({ cmd, desc }) => (
             <div key={cmd} className="flex items-start">
-                <span className="text-primary w-28 shrink-0">{cmd}</span>
+                <span className="text-primary w-32 shrink-0">{cmd}</span>
                 <span>- {desc}</span>
             </div>
         ))}
