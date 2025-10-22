@@ -1,16 +1,31 @@
 
 "use client";
 
-const commands = [
-  'help', 'about', 'projects', 'skills', 'experience', 'contact', 'education', 'certifications', 'leadership', 'sudo', 'clear'
+const helpCommands = [
+    { cmd: 'about', desc: 'Learn about me' },
+    { cmd: 'projects', desc: 'View my projects' },
+    { cmd: 'skills', desc: 'See my technical skills' },
+    { cmd: 'experience', desc: 'My work experience' },
+    { cmd: 'contact', desc: 'How to reach me' },
+    { cmd: 'education', desc: 'My educational background' },
+    { cmd: 'certifications', desc: 'View my certifications' },
+    { cmd: 'leadership', desc: 'Leadership and community involvement' },
+    { cmd: 'sudo', desc: 'Display my mindset' },
+    { cmd: 'clear', desc: 'Clear the terminal' },
 ];
 
 export const Help = () => (
   <div>
     <p>Available commands:</p>
-    {commands.map((cmd) => (
-      <p key={cmd} className="text-primary">{cmd}</p>
-    ))}
+    <div className="mt-2">
+        {helpCommands.map(({ cmd, desc }) => (
+            <div key={cmd} className="flex items-start">
+                <span className="text-primary w-28 shrink-0">{cmd}</span>
+                <span>- {desc}</span>
+            </div>
+        ))}
+    </div>
+    <p className="mt-4">Type any command to continue...</p>
   </div>
 );
 
