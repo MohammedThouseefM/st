@@ -43,7 +43,7 @@ export function Terminal() {
       onClick={() => inputRef.current?.focus()}
     >
       <div className="flex-none pb-2 mb-2">
-        <p className="text-green-400 flex flex-wrap items-center justify-center gap-x-2 text-xs sm:text-sm">
+        <p className="text-green-400 flex flex-wrap items-center gap-x-2 text-xs sm:text-sm">
           {commands.map((cmd, i) => <span key={cmd}>{cmd}{i < commands.length - 1 ? <span className="text-primary mx-1">|</span> : ''}</span>)}
         </p>
       </div>
